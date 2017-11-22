@@ -1,0 +1,21 @@
+
+/*#hero-image{
+    width:100%;
+    height:100%;
+}*/
+
+#card {
+    color: white;
+    background:url('../img/class-diagram.png') center center;
+    padding: 16%;
+    background-size:cover;
+}
+
+section {
+    background-color: #ecf0f1;
+}
+
+
+/*#content{
+    padding:20px;
+}*/
