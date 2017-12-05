@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>forms</title>
-    <link rel="stylesheet" href="../css/bulma.css">
+    <title>cam sqa</title>
+    <link rel="stylesheet" href="public/css/bulma.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
 </head>
@@ -13,41 +13,25 @@
     <nav class="navbar is-info is-fixed-top has-shadow" role="navigation" aria-level="dropdown navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="metrics.html">
-                    <h1 class="title">CAM SQA</h1>
+                <a class="navbar-item" href="">
+                    <h1 class="title" style="color: white">CAM SQA</h1>
                 </a>
             </div>
             <div class="column is-three-quarters"></div>
             <div class="navbar-menu">
-                <!--<div class="navbar-end">
+                <div class="navbar-end">
                     <a class="navbar-item" href="">
                         <i class="fa fa-user-circle" aria-hidden="true">
                             <span>John</span>
                         </i>                            
                     </a>
-                </div>-->
+                </div>
                 <div class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                             <i class="fa fa-globe" aria-hidden="true"></i>                            
                         </a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="">
-                                <i class="fa fa-pie-chart" aria-hidden="true">
-                                    <span>Graphics</span>
-                                </i>                                
-                            </a>
-                            <a class="navbar-item" href="">
-                                <i class="fa fa-book">
-                                    <span>Reports</span>
-                                </i>
-                            </a>
-                            <a class="navbar-item" href="">
-                                <i class="fa fa-cog" aria-hidden="true">
-                                    <spam>Settings</spam>
-                                </i>
-                            </a>
-                            <hr class="dropdown-divider">
                             <a class="navbar-item">
                                 <i class="fa fa-user" aria-hidden="true">
                                     <span>Sign In</span>
@@ -65,11 +49,11 @@
             <div class="column is-three-quarters"></div>
         </div>
     </nav>
-    <section class="section">
-        <div class="container">
+    <section style="background:url('public/img/dbs.png'); background-size: auto;" class="section">
+        <div id="cam" class="container">
             <div class="tile is-ancestor">
                 <div class="tile is-4 is-vertical is-parent">
-                    <article id="qa" class="tile is-child box">
+                    <article class="tile is-child box">
                         <div class="content">
                             <h5 class="subtitle is-5">{{ title }}</h5>
                             <div class="field">
@@ -88,63 +72,110 @@
                             </div>
                         </div>
                     </article>
-                    <article id="mck" class="tile is-child box">
+                    <article class="tile is-child box">
                         <div class="content">
                             <h5 class="subtitle is-5">Metrics Chidamber y Kemerer</h5>
                             <div class="field has-addons">
                                 <div class="control is-expanded">
                                     <div class="select is-fullwidth">
-                                        <select name="metrics">
-                                            <option :value="{{ item.text }}" v-for="item in metrics">{{ item.text }}</option>
+                                        <select v-model="metric">
+                                            <option v-for="item in metrics" v-bind:value="item.id" :id="item.id">{{ item.text }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button type="checkbox" class="button is-primary">
-                                        Choose
-                                        <!--<i class="fa fa-unlock-alt" aria-hidden="true"></i>-->                                           
+                                    <button v-on:click="disabledMetrics" type="button" class="button is-primary">
+                                        <span id="choose">Choose</span>
+                                        <span id="check"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        <span id="lock"><i class="fa fa-lock" aria-hidden="true"></i></span>                                      
                                     </button>
                                 </div>
+                            </div>
+                            <div class="buttons has-addons is-right">
+                                <span v-on:click="activateMetrics" id="unlock" class="button"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                                <span v-on:click="infoActivateMetrics" id="info" class="button"><i class="fa fa-info-circle" aria-hidden="true"></i></span>  
                             </div>
                         </div>
                     </article>
                 </div>
                 <div class="tile is-parent">
-                    <article id="cn" class="tile is-child box">
+                    <article class="tile is-child box">
                         <div class="content">
-                            <h5 class="subtitle is-5">Class Name</h5>
+                            <h5 class="subtitle is-5">Evaluation: metric - class</h5>
+                            <h6 class="subtitle is-6">Class Name</h6>
                             <div class="field has-addons">
                                 <div class="control is-expanded">
-                                    <input v-model="newClass" class="input" type="text" placeholder="Add a class name">
+                                    <input v-model="newClassName" class="input" type="text" placeholder="Add a class name">
                                 </div>
                                 <div class="control">
-                                    <button v-on:click="addClass" type="button" class="button is-info">
+                                    <button v-on:click="addClass" v-on:click="classAdd" type="button" class="button is-info">
                                         <i class="fa fa-plus" aria-hidden="true"></i>                                            
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="content">
-                            <h5 class="subtitle is-5">Evaluation: metric - class</h5>
+                            <h6 class="subtitle is-6">Class List</h6>
                             <div class="field has-addons">
                                 <div class="control is-expanded">
                                     <div class="select is-fullwidth">
-                                        <select name="classList">
-                                            <option value="class" v-for="item in classList">{{ item }}</option>
+                                        <select v-model="selectedClassName">
+                                            <option :value="item" v-for="item in classList" :id="item">{{ item }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button type="submit" class="button is-primary">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>                                            
-                                    </button>
+                                    <div class="select">
+                                        <select v-model="selectedClassValue">
+                                            <option v-for="i in 10">{{ i }}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="control">
-                                    <button type="submit" class="button is-info">
-                                        Evaluate                                          
+                                    <button type="button" class="button is-success" v-on:click="disabledClass">
+                                        <span>Evaluate</span>                                     
                                     </button>
                                 </div>
                             </div>
+                            <div class="field is-grouped is-grouped-left">
+                                <p class="control">
+                                    <a class="button is-danger is-outlined" v-on:click="removeClass">
+                                        <span class="icon is-small">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </span>
+                                        <span>Delete</span>
+                                    </a>
+                                </p>
+                                <!--<p class="control">
+                                    <a class="button is-success is-outlined" v-on:click="disabledClass" id="">
+                                        <span class="icon is-small">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        <span>Evaluate</span>
+                                    </a>
+                                </p>-->
+                            </div>
+                        </div>
+                        <div class="field is-grouped is-grouped-right">
+                            <p class="control">
+                                <a class="button is-primary" v-on:click="graph">
+                                    <span class="icon">
+                                        <i class="fa fa-bar-chart" aria-hidden="true"></i>                                            
+                                    </span>
+                                    <span>Graph</span>
+                                </a>
+                            </p>     
+                        </div>
+                    </article>
+                </div>  
+            </div>
+            <div class="tile is-ancestor">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification is-white-ter">
+                        <p class="title">Wide tile</p>
+                        <p class="subtitle">Aligned with the right tile</p>
+                        <div class="content">
+                            <!-- Content -->
                         </div>
                     </article>
                 </div>
@@ -155,14 +186,12 @@
         <div class="container">
             <div class="content has-text-centered">
                 <p>
-                    <strong>SQA CAM</strong> by <a href="#">Team CAM SQA</a>
+                    <strong>SQA CAM</strong> by <a href="">Team CAM SQA</a>
                 </p>
             </div>
         </div>
     </footer>
-    <script src="../js/vue.js"></script>
-    <script src="../js/qa.js"></script>
-    <script src="../js/cn.js"></script>
-    <script src="../js/mck.js"></script>
+    <script src="public/js/vue.js"></script>
+    <script src="public/js/camsqa.js"></script>
 </body>
 </html>
