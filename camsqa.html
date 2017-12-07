@@ -7,7 +7,8 @@
     <title>cam sqa</title>
     <link rel="stylesheet" href="public/css/bulma.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="public/js/chart.js"></script>
 </head>
 <body>
     <nav class="navbar is-info is-fixed-top has-shadow" role="navigation" aria-level="dropdown navigation">
@@ -127,7 +128,7 @@
                                 <div class="control">
                                     <div class="select">
                                         <select v-model="selectedClassValue">
-                                            <option v-for="i in 10">{{ i }}</option>
+                                            <option v-for="i in listClassValue">{{ i }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -171,11 +172,17 @@
             </div>
             <div class="tile is-ancestor">
                 <div class="tile is-parent">
-                    <article class="tile is-child notification is-white-ter">
-                        <p class="title">Wide tile</p>
-                        <p class="subtitle">Aligned with the right tile</p>
+                    <article class="tile is-child notification is-white">
                         <div class="content">
-                            <!-- Content -->
+                            <div class="chart-container" style="position: relative; 
+                            margin-left: auto;
+                            margin-right: auto;
+                            left: 0;
+                            right: 0;
+                            height:40vh;
+                            width:80vw">
+                            <canvas id="chart"></canvas>
+                            </div>
                         </div>
                     </article>
                 </div>
